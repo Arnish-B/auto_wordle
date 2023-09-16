@@ -1,7 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 // import { emulateTab } from "emulate-tab";
-import { getRandomWord, getWordList } from "../assets/wordbank";
+import {
+  getRandomWord,
+  getSolutionWordList,
+  getAllPossibleWordList,
+} from "../assets/wordbank";
 
+var wor = "";
 const WordleBoard = () => {
 
   const [currentRow, setCurrentRow] = useState(0);
@@ -11,14 +16,20 @@ const WordleBoard = () => {
   const [row4, setRow4] = useState(Array(5).fill("*"));
   const [row5, setRow5] = useState(Array(5).fill("*"));
   const [row6, setRow6] = useState(Array(5).fill("*"));
-  const [completedWord, setCompletedWord] = useState([]);
+  const [word, setWord] = useState("");
   const [targetWord, setTargetWord] = useState("");
-  const [wordList, setWordList] = useState(getWordList());
+  const [allPossibleWordList, setAllPossibleWordList] = useState(
+    getAllPossibleWordList()
+  );
+  const [solutionWordList, setSolutionWordList] = useState(
+    getSolutionWordList()
+  );
   const firstCellRef = useRef(null);
   const tableRef = useRef(null);
 
   useEffect(() => {
-    setWordList(getWordList());
+    setAllPossibleWordList(getAllPossibleWordList());
+    setSolutionWordList(getSolutionWordList());
     const target = getRandomWord();
     setTargetWord(target.toLowerCase());
     firstCellRef.current.focus();
@@ -29,12 +40,40 @@ const WordleBoard = () => {
     return row.every((letter) => letter !== "*");
   };
 
+  const giveHints = (word) => {
+    if (!(allPossibleWordList.includes(word.toLowerCase()))){
+      alert("Invalid word");
+      return;
+    } 
+    console.log("target word: " + targetWord);
+    var hints = "";
+    for(var i = 0;i<5;i++){
+      if(word.charAt(i) === targetWord.charAt(i)){
+        hints = hints + "G";
+    }
+    else if(targetWord.includes(word.charAt(i))){
+        hints = hints + "Y";
+    }
+    else{
+        hints = hints + "g";
+    }
+    }
+    console.log("hints: " + hints);
+    // return hints;
+  }
+
   const handleInput = (e, row, col) => {
     e.preventDefault();
+    // console.log(solutionWordList);
+    // append the letter to the useState "word"
+    // console.log(e.target.value);
+    wor = wor + e.target.value;
+    // console.log("var: " + wor);
+    setWord(wor);
+    // console.log("useState: " + word);
     // Get the input value and check if it is a single, lowercase letter
     const value = e.target.value.toLowerCase();
     if (value.length === 1 && value.match(/[a-z]/)) {
-        setCompletedWord([...completedWord, value]);
       // Copy the appropriate row
       let newRow;
       switch (row) {
@@ -88,8 +127,7 @@ const WordleBoard = () => {
 
       // Focus on the next cell or move to the next row if at the end
       if (col === 4) {
-        setCompletedWord([...completedWord, value]);
-        console.log(completedWord);
+        giveHints(wor);
         if (row === 5) {
           e.target.blur();
         } else {
