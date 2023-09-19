@@ -267,12 +267,12 @@ const WordleBoard = () => {
   const rows = [row1, row2, row3, row4, row5, row6];
   return (
     <div className="flex justify-center items-center h-screen">
-      <table ref={tableRef} className="table-fixed">
+      <table ref={tableRef} className="table-fixed border-gray-50">
         <tbody>
           {rows.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((letter, colIndex) => (
-                <td key={colIndex} className="border p-2">
+                <td key={colIndex} className=" ">
                   <input
                     ref={rowIndex === 0 && colIndex === 0 ? firstCellRef : null}
                     type="text"
@@ -284,7 +284,7 @@ const WordleBoard = () => {
                       [8, 46].includes(e.keyCode) &&
                       handleChangeBackSpace(e, rowIndex, colIndex)
                     }
-                    className={`text-center w-full ${
+                    className={`text-center m-2 w-12 bg-transparent border p-2 border-slate-700 text-sky-400 ${
                       rowIndex === 0
                         ? row1Color[colIndex] === "G"
                           ? "bg-green-500"
