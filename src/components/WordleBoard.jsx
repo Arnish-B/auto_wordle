@@ -266,7 +266,8 @@ const WordleBoard = () => {
   };
   const rows = [row1, row2, row3, row4, row5, row6];
   return (
-    <div className="flex justify-center items-center h-screen">
+    
+    <div className=" bg-black flex justify-center items-center h-screen">
       <table ref={tableRef} className="table-fixed border-gray-50">
         <tbody>
           {rows.map((row, rowIndex) => (
@@ -284,42 +285,42 @@ const WordleBoard = () => {
                       [8, 46].includes(e.keyCode) &&
                       handleChangeBackSpace(e, rowIndex, colIndex)
                     }
-                    className={`text-center m-2 w-12 bg-transparent border p-2 border-slate-700 text-sky-400 ${
+                    className={`rounded-md text-center m-1 w-12  border p-2 border-slate-700 text-sky-400 ${
                       rowIndex === 0
                         ? row1Color[colIndex] === "G"
-                          ? "bg-green-500"
+                          ? "bg-green-800"
                           : row1Color[colIndex] === "Y"
-                          ? "bg-yellow-500"
-                          : "bg-gray-500"
+                          ? "bg-yellow-800"
+                          : "bg-black"
                         : rowIndex === 1
                         ? row2Color[colIndex] === "G"
-                          ? "bg-green-500"
+                          ? "bg-green-800"
                           : row2Color[colIndex] === "Y"
-                          ? "bg-yellow-500"
-                          : "bg-gray-500"
+                          ? "bg-yellow-800"
+                          : "bg-black"
                         : rowIndex === 2
                         ? row3Color[colIndex] === "G"
-                          ? "bg-green-500"
+                          ? "bg-green-800"
                           : row3Color[colIndex] === "Y"
-                          ? "bg-yellow-500"
-                          : "bg-gray-500"
+                          ? "bg-yellow-800"
+                          : "bg-black"
                         : rowIndex === 3
                         ? row4Color[colIndex] === "G"
-                          ? "bg-green-500"
+                          ? "bg-green-800"
                           : row4Color[colIndex] === "Y"
-                          ? "bg-yellow-500"
-                          : "bg-gray-500"
+                          ? "bg-yellow-800"
+                          : "bg-black"
                         : rowIndex === 4
                         ? row5Color[colIndex] === "G"
-                          ? "bg-green-500"
+                          ? "bg-green-800"
                           : row5Color[colIndex] === "Y"
-                          ? "bg-yellow-500"
-                          : "bg-gray-500"
+                          ? "bg-yellow-800"
+                          : "bg-black"
                         : row6Color[colIndex] === "G"
-                        ? "bg-green-500"
+                        ? "bg-green-800"
                         : row6Color[colIndex] === "Y"
-                        ? "bg-yellow-500"
-                        : "bg-gray-500"
+                        ? "bg-yellow-800"
+                        : "bg-black"
                     }`}
                   />
                 </td>
@@ -329,6 +330,7 @@ const WordleBoard = () => {
         </tbody>
       </table>
     </div>
+    
   );
 };
 
