@@ -48,7 +48,7 @@ const WordleBoard = () => {
   const giveHints = (word, row) => {
     var hints="";
     if (!(allPossibleWordList.includes(word.toLowerCase()))){
-      alert("Invalid word");
+      // alert("Invalid word");
       hints="rrrrr";
       
     } 
@@ -182,10 +182,14 @@ const WordleBoard = () => {
           setWon(true);
           window.location.reload();
         }
+        else if (hints === "rrrrr") {
+          alert("Try again");
+        }
+        
         wor = "";
         if (row === 5) {
           e.target.blur();
-        } else {
+        } else if(hints !== "rrrrr") {
             const table = e.target.parentElement.parentElement;
           setCurrentRow(row + 1);
           
@@ -207,6 +211,46 @@ const WordleBoard = () => {
 
   const handleChangeBackSpace = (e, row, col) => {
     e.preventDefault();
+    var hints="";
+    switch (row) {
+      case 0:
+      // for(i in hints){
+      //   row1Color[i] = hints.charAt(i);
+      // }
+        setRow1Color(hints.split(''));
+        break;
+      case 1:
+      // for (i in hints) {
+      //   row2Color[i] = hints.charAt(i);
+      // }
+        setRow2Color(hints.split(''));
+        break;
+      case 2:
+      // for (i in hints) {
+      //   row3Color[i] = hints.charAt(i);
+      // }
+        setRow3Color(hints.split(''));
+        break;
+      case 3:
+      // for (i in hints) {
+      //   row4Color[i] = hints.charAt(i);
+      // }
+        setRow4Color(hints.split(''));
+        break;
+      case 4:
+      // for (i in hints) {
+      //   row5Color[i] = hints.charAt(i);
+      // }
+        setRow5Color(hints.split(''));
+        break;
+      case 5:
+      // for (i in hints) {
+      //   row6Color[i] = hints.charAt(i);
+      // }
+        setRow6Color(hints.split(''));
+        break;
+      default:break;
+    }
     wor = wor.substring(0, wor.length - 1);
     setWord(wor);
     if (e.keyCode === 8) {
