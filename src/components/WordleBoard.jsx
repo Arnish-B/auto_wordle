@@ -9,6 +9,7 @@ var wor = "";
 const WordleBoard = () => {
 
   const [currentRow, setCurrentRow] = useState(0);
+  const [output,setOutput]=useState("");
   const [row1, setRow1] = useState(Array(5).fill("*"));
   const [row2, setRow2] = useState(Array(5).fill("*"));
   const [row3, setRow3] = useState(Array(5).fill("*"));
@@ -39,7 +40,7 @@ const WordleBoard = () => {
     const target = getRandomWord();
     setTargetWord(target.toLowerCase());
     firstCellRef.current.focus();
-  }, [won]);
+  }, []);
 
   const isRowComplete = (row) => {
     return row.every((letter) => letter !== "*");
@@ -178,18 +179,21 @@ const WordleBoard = () => {
         console.log(row);
         var hints = giveHints(wor, row);
         if (hints === "GGGGG") {
-          alert("You won!");
-          setWon(true);
-          window.location.reload();
+          setOutput("You won!");
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          
         }
         else if (hints === "rrrrr") {
-          alert("Try again");
+          setOutput("Not a Word!!!");
         }
         
         wor = "";
         if (row === 5) {
           e.target.blur();
-        } else if(hints !== "rrrrr") {
+        } else if(hints !== "rrrrr" && hints!=="GGGGG") {
             const table = e.target.parentElement.parentElement;
           setCurrentRow(row + 1);
           
@@ -212,6 +216,7 @@ const WordleBoard = () => {
   const handleChangeBackSpace = (e, row, col) => {
     e.preventDefault();
     var hints="";
+    setOutput("");
     switch (row) {
       case 0:
       // for(i in hints){
@@ -313,9 +318,12 @@ const WordleBoard = () => {
     }
   };
   const rows = [row1, row2, row3, row4, row5, row6];
-  return (
-    
-    <div className=" bg-black flex justify-center items-center h-screen">
+  return (<>
+    {/* <h1 className="text-white">{output}</h1> */}
+    {/* <div className=" bg-black flex justify-center items-center h-screen"> */}
+    <div className="bg-black flex flex-col items-center justify-center h-screen">
+    <h1 className="text-white fixed top-20">{output}</h1>
+    <div className="table-container">
       <table ref={tableRef} className="table-fixed border-gray-50">
         <tbody>
           {rows.map((row, rowIndex) => (
@@ -401,9 +409,10 @@ const WordleBoard = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
     
-  );
+  </>);
 };
 
 export default WordleBoard;
