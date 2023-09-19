@@ -15,12 +15,12 @@ const WordleBoard = () => {
   const [row4, setRow4] = useState(Array(5).fill("*"));
   const [row5, setRow5] = useState(Array(5).fill("*"));
   const [row6, setRow6] = useState(Array(5).fill("*"));
-  const [row1Color, setRow1Color] = useState(["g", "g", "g", "g", "g"]);
-  const [row2Color, setRow2Color] = useState(["g", "g", "g", "g", "g"]);
-  const [row3Color, setRow3Color] = useState(["g", "g", "g", "g", "g"]);
-  const [row4Color, setRow4Color] = useState(["g", "g", "g", "g", "g"]);
-  const [row5Color, setRow5Color] = useState(["g", "g", "g", "g", "g"]);
-  const [row6Color, setRow6Color] = useState(["g", "g", "g", "g", "g"]);
+  const [row1Color, setRow1Color] = useState([" ", " ", " ", " ", " "]);
+  const [row2Color, setRow2Color] = useState([" ", " ", " ", " ", " "]);
+  const [row3Color, setRow3Color] = useState([" ", " ", " ", " ", " "]);
+  const [row4Color, setRow4Color] = useState([" ", " ", " ", " ", " "]);
+  const [row5Color, setRow5Color] = useState([" ", " ", " ", " ", " "]);
+  const [row6Color, setRow6Color] = useState([" ", " ", " ", " ", " "]);
   const [word, setWord] = useState("");
   const [targetWord, setTargetWord] = useState("");
   const [won, setWon] = useState(false);
@@ -46,12 +46,16 @@ const WordleBoard = () => {
   };
 
   const giveHints = (word, row) => {
+    var hints="";
     if (!(allPossibleWordList.includes(word.toLowerCase()))){
       alert("Invalid word");
-      return;
+      hints="rrrrr";
+      
     } 
+    else{
     console.log("target word: " + targetWord);
-    var hints = "";
+    hints = "";
+
     for(var i = 0;i<5;i++){
       if(word.charAt(i) === targetWord.charAt(i)){
         hints = hints + "G";
@@ -63,7 +67,7 @@ const WordleBoard = () => {
         hints = hints + "g";
     }
     }
-    console.log("hints: " + hints);
+    console.log("hints: " + hints);}
     switch (row) {
       case 0:
       // for(i in hints){
@@ -285,41 +289,65 @@ const WordleBoard = () => {
                       [8, 46].includes(e.keyCode) &&
                       handleChangeBackSpace(e, rowIndex, colIndex)
                     }
-                    className={`rounded-md text-center m-1 w-12  border p-2 border-slate-700 text-sky-400 ${
+                    className={`rounded-md text-center m-1 w-12  border p-2 border-slate-700 text-white ${
                       rowIndex === 0
                         ? row1Color[colIndex] === "G"
-                          ? "bg-green-800"
+                          ? "bg-green-700"
                           : row1Color[colIndex] === "Y"
-                          ? "bg-yellow-800"
+                          ? "bg-yellow-400"
+                          : row1Color[colIndex] === "g"
+                          ? "bg-grey-800"
+                          : row1Color[colIndex] === "r"
+                          ? "bg-red-700"
                           : "bg-black"
                         : rowIndex === 1
                         ? row2Color[colIndex] === "G"
-                          ? "bg-green-800"
+                          ? "bg-green-700"
                           : row2Color[colIndex] === "Y"
-                          ? "bg-yellow-800"
+                          ? "bg-yellow-400"
+                          : row2Color[colIndex] === "g"
+                          ? "bg-grey-800"
+                          : row2Color[colIndex] === "r"
+                          ? "bg-red-700"
                           : "bg-black"
                         : rowIndex === 2
                         ? row3Color[colIndex] === "G"
-                          ? "bg-green-800"
+                          ? "bg-green-700"
                           : row3Color[colIndex] === "Y"
-                          ? "bg-yellow-800"
+                          ? "bg-yellow-400"
+                          : row3Color[colIndex] === "g"
+                          ? "bg-grey-800"
+                          : row3Color[colIndex] === "r"
+                          ? "bg-red-700"
                           : "bg-black"
                         : rowIndex === 3
                         ? row4Color[colIndex] === "G"
-                          ? "bg-green-800"
+                          ? "bg-green-700"
                           : row4Color[colIndex] === "Y"
-                          ? "bg-yellow-800"
+                          ? "bg-yellow-400"
+                          : row4Color[colIndex] === "g"
+                          ? "bg-grey-800"
+                          : row4Color[colIndex] === "r"
+                          ? "bg-red-700"
                           : "bg-black"
                         : rowIndex === 4
                         ? row5Color[colIndex] === "G"
-                          ? "bg-green-800"
+                          ? "bg-green-700"
                           : row5Color[colIndex] === "Y"
-                          ? "bg-yellow-800"
+                          ? "bg-yellow-400"
+                          : row5Color[colIndex] === "g"
+                          ? "bg-grey-800"
+                          : row5Color[colIndex] === "r"
+                          ? "bg-red-700"
                           : "bg-black"
                         : row6Color[colIndex] === "G"
-                        ? "bg-green-800"
+                        ? "bg-green-700"
                         : row6Color[colIndex] === "Y"
-                        ? "bg-yellow-800"
+                        ? "bg-yellow-400"
+                        : row6Color[colIndex] === "g"
+                        ? "bg-grey-800"
+                        : row6Color[colIndex] === "r"
+                          ? "bg-red-700"
                         : "bg-black"
                     }`}
                   />
