@@ -51,7 +51,6 @@ const WordleBoard = () => {
     if (!(allPossibleWordList.includes(word.toLowerCase()))){
       // alert("Invalid word");
       hints="rrrrr";
-      
     } 
     else{
     console.log("target word: " + targetWord);
@@ -113,10 +112,12 @@ const WordleBoard = () => {
 
   const handleInput = (e, row, col) => {
     e.preventDefault();
-    // console.log(solutionWordList);
-    // append the letter to the useState "word"
-    // console.log(e.target.value);
     wor = wor + e.target.value;
+    wor=wor.toLowerCase();
+    if (wor.length>5){
+      wor=wor.substring(0, 4)+ e.target.value.toLowerCase();
+      console.log(wor);
+    }
     // console.log("var: " + wor);
     setWord(wor);
     // console.log("useState: " + word);
@@ -256,7 +257,8 @@ const WordleBoard = () => {
         break;
       default:break;
     }
-    wor = wor.substring(0, wor.length - 1);
+    wor = wor.substring(0, wor.length - 1).toLocaleLowerCase();
+    console.log(wor);
     setWord(wor);
     if (e.keyCode === 8) {
       if (col !== 0) {
